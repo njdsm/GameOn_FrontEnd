@@ -6,12 +6,13 @@ const RegistrationForm = (props) => {
     
     const Submittal = () => {
         const userReg = {
-            FirstName: inputs.firstName,
-            LastName: inputs.lastName,
-            UserName: inputs.userName,
-            Password: inputs.password,
-            Email: inputs.email,
-            PhoneNumber: inputs.phoneNumber
+            first_name: inputs.firstName,
+            last_name: inputs.lastName,
+            username: inputs.userName,
+            password: inputs.password,
+            email: inputs.email,
+            phone: inputs.phoneNumber,
+            points: 0
         }
         console.log("registered", userReg); 
         props.registerUser(userReg);

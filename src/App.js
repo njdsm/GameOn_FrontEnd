@@ -14,10 +14,11 @@ class App extends Component {
 
   registerUser = async(userReg) => {
     console.log("passed reg param", userReg)
+    debugger;
+
     try {
-        let {data} = await axios.post('http//127.0.0.1:8000/users/', userReg);
+        let {data} = await axios.post('http://127.0.0.1:8000/users/', userReg);
         console.log('registered post', data);
-        debugger;
         this.loginUser({UserName:userReg.UserName,Password:userReg.Password})
     }
     catch(error){
@@ -27,11 +28,11 @@ class App extends Component {
 
   loginUser = async(user) => {
     console.log("attempting login");
+    debugger
     try{
-      let {data} = await axios.post('http://127.0.0.1:8000/api/token/', user)
+      let {data} = await axios.post('http://127.0.0.1:8000/users/login/', user)
       console.log('logged in', data);
-      localStorage.setItem('access', data.access);
-      localStorage.setItem('refresh', data.refresh);
+      localStorage.setItem('token', data.token);
     }
     catch(error){
         alert(`Whoops! ${error}. Looks like we're having some technical difficulties. Try again later!`)
