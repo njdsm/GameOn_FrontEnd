@@ -1,5 +1,5 @@
 import React from 'react';
-import useCustomForm from '../CustomHooks/useCustomForms';
+import useCustomForm from '../CustomHooks/useCustomForm';
 import './registrationForm.css';
 
 const RegistrationForm = (props) => {
