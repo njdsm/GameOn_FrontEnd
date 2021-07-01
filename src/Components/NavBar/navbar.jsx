@@ -16,26 +16,29 @@ class NavBar extends Component{
             console.log(this.props.user.items)
             return(
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <Link to="/" class="nav-link">
-                            <li class="navbar-brand nav-item">
-                                <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""/>
-                                GameOn
-                            </li>
-                        </Link>
-                        <Link to="/profile" class="nav-link">
-                            <li class="navbar-brand nav-item">
-                                Profile
-                            </li>
-                        </Link>
-                        <button className="btn btn-dark" onClick={() => this.props.logout()}>Logout</button>
-                    </ul>
-                </div>
-            </nav>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav nav navbar">
+                                <Link to="/" class="nav-link main-title">
+                                    <li>
+                                        <strong className="main-title">GameOn</strong>
+                                    </li>
+                                </Link>
+                                <Link to="/profile" class="nav-link">
+                                    <li >
+                                        Profile
+                                    </li>
+                                </Link>
+                                <Link class="nav-link" to="/login" onClick={() => this.props.logout()}>
+                                    <li>
+                                        Logout
+                                    </li>
+                                </Link>
+                            </ul>
+                        </div>
+                </nav>
             )
         }
         else {
@@ -47,10 +50,9 @@ class NavBar extends Component{
                         </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            <Link to="/" class="nav-link">
-                                <li class="navbar-brand nav-item">
-                                    <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""/>
-                                    GameOn
+                            <Link to="/" class="nav-link main-title">
+                                <li>
+                                    <strong className="main-title">GameOn</strong>
                                 </li>
                             </Link>
                             <Link to="/login" class="nav-link">

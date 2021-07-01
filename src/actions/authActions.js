@@ -38,6 +38,6 @@ export const logout = () => dispatch => {
     debugger
     dispatch({
         type: LOGOUT,
-        payload: {}
+        payload: []
     })
 }
