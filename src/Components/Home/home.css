@@ -1,0 +1,18 @@
+div {
+    color: white;
+    font-size: x-large;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+}
+
+.game-name{
+    justify-content: center;
+}
+
+.card{
+    background-color: darkslategray;
+    width: 50%;
+    justify-content: center;
+}

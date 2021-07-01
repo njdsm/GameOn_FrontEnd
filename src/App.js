@@ -12,31 +12,32 @@ import store from './store';
 
 class App extends Component {
 
-  registerUser = async(userReg) => {
-    console.log("passed reg param", userReg)
-    debugger;
+  // registerUser = async(userReg) => {
+  //   console.log("passed reg param", userReg)
+  //   try {
+  //       let {data} = await axios.post('http://127.0.0.1:8000/users/', userReg);
+  //       console.log('registered post', data);
+  //       this.loginUser({UserName:userReg.UserName,Password:userReg.Password})
+  //   }
+  //   catch(error){
+  //       alert(`Whoops! ${error}. Looks like we're having some technical difficulties. Try again later!`)
+  //   }
+  // }
 
-    try {
-        let {data} = await axios.post('http://127.0.0.1:8000/users/', userReg);
-        console.log('registered post', data);
-        this.loginUser({UserName:userReg.UserName,Password:userReg.Password})
-    }
-    catch(error){
-        alert(`Whoops! ${error}. Looks like we're having some technical difficulties. Try again later!`)
-    }
-  }
+  // loginUser = async(user) => {
+  //   console.log("attempting login");
+  //   try{
+  //     let {data} = await axios.post('http://127.0.0.1:8000/users/login/', user)
+  //     console.log('logged in', data);
+  //     localStorage.setItem('token', data.token);
+  //   }
+  //   catch(error){
+  //       alert(`Whoops! ${error}. Looks like we're having some technical difficulties. Try again later!`)
+  //   }
+  // }
 
-  loginUser = async(user) => {
-    console.log("attempting login");
-    debugger
-    try{
-      let {data} = await axios.post('http://127.0.0.1:8000/users/login/', user)
-      console.log('logged in', data);
-      localStorage.setItem('token', data.token);
-    }
-    catch(error){
-        alert(`Whoops! ${error}. Looks like we're having some technical difficulties. Try again later!`)
-    }
+  buttonClick(){
+    console.log(store.getState());
   }
 
   render(){
@@ -47,18 +48,10 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={Home}/>
               <Route  
-                  path="/login" 
-                  render={(props) => (
-                    <Login loginUser={(user) => this.loginUser(user)}/>
-                  )}
-              />
-              <Route 
-                  path="/registration" 
-                  render={(props) => (
-                    <RegistrationForm registerUser={(regUser) => this.registerUser(regUser)} />
-                  )}
-              />
+                  path="/login" component={Login}/>
+              <Route path="/registration" component={RegistrationForm}/>
             </Switch>
+            <button onClick={() => this.buttonClick()}>test</button>
           </Provider>
         </div>
       );

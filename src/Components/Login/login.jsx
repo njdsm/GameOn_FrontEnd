@@ -1,37 +1,61 @@
-import React from 'react';
-import useCustomForm from '../CustomHooks/useCustomForm';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { login } from '../../actions/authActions';
 import './login.css';
 
 
-const Login = (props) => {
-    const Submittal = () => {
-        const userLogin = {
-            username: inputs.userName,
-            password: inputs.password,
+class Login extends Component {
+    constructor(props){
+        super(props)
+        this.state ={
+            username: "",
+            password: ""
         }
-        console.log("Welcome Back!", userLogin); 
-        props.loginUser(userLogin);
     }
 
-    const {inputs, handleChange, handleSubmit} = useCustomForm(Submittal);
+    onChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
 
-    return (
-        <div className="form">
-            <h4>Login</h4>
-            <form onSubmit = {handleSubmit} >
-                <div className="form-group d-flex flex-column">
-                    <label htmlFor="userName">Username: </label>
-                    <input className="form-rounded form-control" type="text" name="userName" onChange={handleChange} value={inputs.userName} spellCheck="false"/>
+    onSubmit(e){
+        e.preventDefault();
 
-                    <label htmlFor="password">Password: </label>
-                    <input className="form-rounded form-control" type="text" name="password" onChange={handleChange} value={inputs.password} spellCheck="false"/>
+        const user = {
+            username: this.state.username,
+            password: this.state.password
+        }
+        this.props.login(user);
+    }
 
-                    <br/>
-                    <button className="btn btn-success" type="submit">Login!</button>
-                </div>
-            </form>
-        </div>
-    )
+    render() {
+        return (
+            <div className="form">
+                <h4>Login</h4>
+                <form onSubmit={(e) => this.onSubmit(e)} >
+                    <div className="form-group d-flex flex-column">
+                        <label htmlFor="userName">Username: </label>
+                        <input className="form-rounded form-control" type="text" name="username" onChange={(e) => this.onChange(e)} value={this.state.username} spellCheck="false"/>
+    
+                        <label htmlFor="password">Password: </label>
+                        <input className="form-rounded form-control" type="text" name="password" onChange={(e) => this.onChange(e)} value={this.state.password} spellCheck="false"/>
+    
+                        <br/>
+                        <button className="btn btn-success" type="submit">Login!</button>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+    
+    
 }
+Login.propTypes = {
+    login: PropTypes.func.isRequired,
+};
 
-export default Login;
+
+
+export default connect(null, { login })(Login);
