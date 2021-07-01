@@ -30,7 +30,7 @@ class RegistrationForm extends Component {
         const user = {
             first_name: this.state.first_name,
             last_name: this.state.last_name,
-            username: this.state.username,
+            user_name: this.state.username,
             password: this.state.password,
             email: this.state.email,
             phone: this.state.phone

@@ -1,4 +1,4 @@
-import { FETCH_STATS, CREATE_STAT } from './types';
+import { FETCH_STATS, CREATE_STAT, FETCH_PLAYER_STATS } from './types';
 import axios from 'axios';
 
 //each action creator is a function
@@ -21,5 +21,13 @@ export const createStat = (newStat) => dispatch => {
         .then(stat => dispatch({
             type: CREATE_STAT,
             payload: stat.data
+    }));
+}
+
+export const fetchPlayerStats = (player) => dispatch => {
+    axios.get('http://127.0.0.1:8000/stats/?player_id=' + player.id)
+        .then(playerStats => dispatch({
+            type: FETCH_PLAYER_STATS,
+            payload: playerStats.data
     }));
 }

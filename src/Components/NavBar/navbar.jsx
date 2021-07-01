@@ -1,5 +1,9 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logout } from '../../actions/authActions';
+
 import "./navbar.css"
 
 class NavBar extends Component{
@@ -31,12 +35,21 @@ class NavBar extends Component{
                                 SignUp
                             </li>
                         </Link>
+                        <Link to="/profile" class="nav-link">
+                            <li class="navbar-brand nav-item">
+                                Profile
+                            </li>
+                        </Link>
+                        <button className="btn btn-dark" onClick={() => this.props.logout()}>Logout</button>
                     </ul>
                 </div>
-               
             </nav>
         );
     }
 }
 
-export default NavBar;
+NavBar.propTypes = {
+    logout: PropTypes.func.isRequired
+};
+
+export default connect(null, { logout })(NavBar);

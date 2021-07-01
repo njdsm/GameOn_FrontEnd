@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchGames } from '../../actions/gameActions';
 import { fetchStats } from '../../actions/statsActions';
+import { fetchPlayerStats } from '../../actions/statsActions';
 import './home.css';
 
 
@@ -10,10 +11,12 @@ class Home extends Component{
     constructor(props){
         super(props);
     }
+
     componentDidMount(){
         console.log("Home Mount");
         this.props.fetchStats();
         this.props.fetchGames();
+        // this.props.fetchPlayerStats();
     }
 
     mapGames(){
@@ -33,71 +36,19 @@ class Home extends Component{
         ));
     }
 
-    buttonClick(){
-        console.log(this.props.stats);
-        console.log(this.props.games);
-    }
-
     render(){
-        if (this.props.user){
-            return(
-                <div>
-                    <div className='welcome-banner'>Welcome Back {this.props.user.username}</div>
-                    <div className="carousel">
-                        Test
-                    </div>
-
-                </div>
-
-            )
-        }
-        else{
-            // return(
-            //     <div>Welcome to GameOn! Login or SignUp using the links above!</div>
-            // )
-            return(
-                <div>
-                        {this.mapGames()}
-
-                    {/* <div class="card-group">
-                        <div class="card">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            </div>
-                            <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                            <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                            </div>
-                            <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                            </div>
-                        </div> */}
-                        {/* </div> */}
-                </div>
-
-            )
-        }
-        
+        return(
+            <div>
+                {this.mapGames()}
+            </div>
+        ) 
     }
 }
+
 Home.propTypes = {
     fetchStats: PropTypes.func.isRequired,
     fetchGames: PropTypes.func.isRequired,
+    fetchPlayerStats: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -105,4 +56,4 @@ const mapStateToProps = state => ({
     games: state.games.items
 });
 
-export default connect(mapStateToProps, { fetchGames, fetchStats })(Home);
+export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats })(Home);

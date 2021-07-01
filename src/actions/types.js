@@ -10,3 +10,4 @@ export const CREATE_GAME = 'CREATE_GAME';
 export const START_GAME = 'START_GAME';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const FETCH_PLAYER_STATS = 'FETCH_PLAYER_STATS';

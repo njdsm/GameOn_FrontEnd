@@ -1,4 +1,4 @@
-import { FETCH_STATS, CREATE_STAT, FETCH_PLAYER_STATS } from '../actions/types';
+import { LOGIN, REGISTER_USER, LOGOUT } from '../actions/types';
 
 const initialState = {
     items: []
@@ -9,17 +9,17 @@ const initialState = {
 // eslint-disable-next-line
 export default function(state = initialState, action){
     switch(action.type){ 
-        case FETCH_STATS:
+        case LOGIN:
             return {
                 ...state, //previous state
                 items: action.payload //array of comment objects being pulled from the API
             };
-        case CREATE_STAT:
+        case REGISTER_USER:
             return {
                 ...state,
-                items: [action.payload, ...state.items]
+                items: action.payload
             }
-        case FETCH_PLAYER_STATS:
+        case LOGOUT:
             return {
                 ...state,
                 items: action.payload

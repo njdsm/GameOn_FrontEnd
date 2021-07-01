@@ -22,9 +22,8 @@ class Login extends Component {
 
     onSubmit(e){
         e.preventDefault();
-
         const user = {
-            username: this.state.username,
+            user_name: this.state.username,
             password: this.state.password
         }
         this.props.login(user);
@@ -49,13 +48,9 @@ class Login extends Component {
             </div>
         )
     }
-    
-    
 }
 Login.propTypes = {
     login: PropTypes.func.isRequired,
 };
-
-
 
 export default connect(null, { login })(Login);
