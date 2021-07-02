@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from '../../actions/authActions';
+import { Link } from 'react-router-dom';
 import './login.css';
 
 
@@ -33,18 +34,17 @@ class Login extends Component {
         return (
             <div className="form">
                 <h4>Login</h4>
-                <form onSubmit={(e) => this.onSubmit(e)} >
-                    <div className="form-group d-flex flex-column">
+                    <form onSubmit={(e) => this.onSubmit(e)} >
+                        <div className="form-group d-flex flex-column">
                         <label htmlFor="userName">Username: </label>
                         <input className="form-rounded form-control" type="text" name="username" onChange={(e) => this.onChange(e)} value={this.state.username} spellCheck="false"/>
-    
                         <label htmlFor="password">Password: </label>
                         <input className="form-rounded form-control" type="text" name="password" onChange={(e) => this.onChange(e)} value={this.state.password} spellCheck="false"/>
-    
                         <br/>
                         <button className="btn btn-success" type="submit">Login!</button>
                     </div>
                 </form>
+                
             </div>
         )
     }

@@ -12,8 +12,36 @@ class NavBar extends Component{
     }
 
     render(){
-        if (this.props.user.length != 0){
-            console.log(this.props.user.items)
+        if (this.props.user.length !== 0 && this.props.user.data.host === true){
+            return(
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav nav navbar">
+                                <Link to="/" class="nav-link main-title">
+                                    <li>
+                                        <strong className="main-title">GameOn</strong>
+                                    </li>
+                                </Link>
+                                <Link to="/profile" class="nav-link">
+                                    <li >
+                                        Profile HOST
+                                    </li>
+                                </Link>
+                                <Link class="nav-link" to="/login" onClick={() => this.props.logout()}>
+                                    <li>
+                                        Logout HOST
+                                    </li>
+                                </Link>
+                            </ul>
+                        </div>
+                </nav>
+            )
+        }
+
+        else if (this.props.user.length !== 0 ){
             return(
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

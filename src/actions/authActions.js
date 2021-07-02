@@ -1,4 +1,5 @@
 import { LOGIN, REGISTER, LOGOUT, REGISTER_USER } from './types';
+import { Link } from "react-router-dom"
 import axios from 'axios';
 
 //each action creator is a function
@@ -6,7 +7,7 @@ import axios from 'axios';
 //dispatch is like resolving a promise; dispatch allows for sending of data
 export const login = (user) => dispatch => {
     try{
-        axios.get('http://127.0.0.1:8000/users/', user).then(user => dispatch({
+        axios.put('http://127.0.0.1:8000/users/', user).then(user => dispatch({
             type: LOGIN,
             payload: user,
         }))
@@ -35,7 +36,6 @@ export const registerUser = (userReg) => dispatch => {
 }
 
 export const logout = () => dispatch => {
-    debugger
     dispatch({
         type: LOGOUT,
         payload: []
