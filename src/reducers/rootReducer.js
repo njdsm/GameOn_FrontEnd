@@ -7,4 +7,5 @@ export default combineReducers({
     stats: statsReducer,
     games: gameReducer,
     user: authReducer,
+    users: authReducer,
 });

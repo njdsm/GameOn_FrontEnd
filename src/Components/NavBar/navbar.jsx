@@ -25,9 +25,9 @@ class NavBar extends Component{
                                         <strong className="main-title">GameOn</strong>
                                     </li>
                                 </Link>
-                                <Link to="/profile" class="nav-link">
+                                <Link to="/game" class="nav-link">
                                     <li >
-                                        Profile HOST
+                                        Game HOST
                                     </li>
                                 </Link>
                                 <Link class="nav-link" to="/login" onClick={() => this.props.logout()}>
@@ -52,6 +52,11 @@ class NavBar extends Component{
                                 <Link to="/" class="nav-link main-title">
                                     <li>
                                         <strong className="main-title">GameOn</strong>
+                                    </li>
+                                </Link>
+                                <Link to="/game" class="nav-link">
+                                    <li >
+                                        Game Player
                                     </li>
                                 </Link>
                                 <Link to="/profile" class="nav-link">

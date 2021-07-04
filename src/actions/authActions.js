@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER, LOGOUT, REGISTER_USER } from './types';
+import { LOGIN, REGISTER, LOGOUT, REGISTER_USER, GET_USERS } from './types';
 import { Link } from "react-router-dom"
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ export const login = (user) => dispatch => {
     try{
         axios.put('http://127.0.0.1:8000/users/', user).then(user => dispatch({
             type: LOGIN,
-            payload: user,
+            payload: user.data,
         }))
     }
     catch(error){
@@ -35,9 +35,34 @@ export const registerUser = (userReg) => dispatch => {
   
 }
 
-export const logout = () => dispatch => {
-    dispatch({
-        type: LOGOUT,
-        payload: []
-    })
+export const getUsers = () => dispatch => {
+    debugger
+    try {
+        let {data} = axios.get('http://127.0.0.1:8000/users/').then(
+            users => dispatch({
+                type: GET_USERS,
+                payload: users.data
+            })
+        );
+        console.log('users', data)
+    }
+    catch(error){
+        alert(`Whoops! ${error}. Looks like we're having some technical difficulties. Try again later!`)
+    }
+}
+
+export const logout = (user) => dispatch => {
+    debugger
+    let content = {'logged_in': false}
+    try {
+        let {data} = axios.put('http://127.0.0.1:8000/users/' + user.id + '/', content).then(
+            dispatch({
+                type: LOGOUT,
+                payload: []
+            })
+        )
+    }
+    catch(error){
+        alert(`Whoops! ${error}. Looks like we're having some technical difficulties. Try again later!`)
+    }
 }
