@@ -1,5 +1,4 @@
 import { LOGIN, REGISTER, LOGOUT, REGISTER_USER, GET_USERS } from './types';
-import { Link } from "react-router-dom"
 import axios from 'axios';
 
 //each action creator is a function
@@ -36,7 +35,6 @@ export const registerUser = (userReg) => dispatch => {
 }
 
 export const getUsers = () => dispatch => {
-    debugger
     try {
         let {data} = axios.get('http://127.0.0.1:8000/users/').then(
             users => dispatch({
@@ -52,7 +50,6 @@ export const getUsers = () => dispatch => {
 }
 
 export const logout = (user) => dispatch => {
-    debugger
     let content = {'logged_in': false}
     try {
         let {data} = axios.put('http://127.0.0.1:8000/users/' + user.id + '/', content).then(

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchGames } from '../../actions/gameActions';
 import { fetchStats } from '../../actions/statsActions';
 import { fetchPlayerStats } from '../../actions/statsActions';
+import { getUsers } from '../../actions/authActions'
 import './runGame.css';
 
 
@@ -12,8 +13,6 @@ class RunGame extends Component{
         super(props);
     }
 
-
-
     componentDidMount(){
         console.log("Home Mount");
         this.props.fetchGames();
@@ -21,11 +20,24 @@ class RunGame extends Component{
         // this.props.fetchPlayerStats();
     }
 
+
+
     render(){
-        if (this.props.user.length !== 0 && this.props.user.data.host === true){
-            return(
-                <div>Host a game!</div>
-            );
+        if (this.props.user.length !== 0 && this.props.user.host === true){
+            if (this.props.currentGame){
+                return(
+                    <div>
+                        {this.props.currentGame.name}
+                    </div>
+                )
+            }
+            else{
+                return(
+                    <div>
+                        <div>Active Game!</div>
+                    </div>
+                );
+            }
         }
     
         else if (this.props.user.length !== 0 ){
@@ -45,13 +57,15 @@ RunGame.propTypes = {
     fetchStats: PropTypes.func.isRequired,
     fetchGames: PropTypes.func.isRequired,
     fetchPlayerStats: PropTypes.func.isRequired,
+    getUsers: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
     stats: state.stats.items,
     games: state.games.items,
     user: state.user.items,
-    users: state.users.items
+    users: state.users.items,
+    currentGame: state.currentGame.items,
 });
 
-export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats })(RunGame);
+export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats, getUsers })(RunGame);

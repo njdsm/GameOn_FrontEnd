@@ -9,6 +9,7 @@ import RunGame from './Components/RunGame/runGame';
 import RegistrationForm from './Components/RegistrationForm/registrationForm'
 import { Component } from 'react';
 import store from './store';
+import runGame from './Components/RunGame/runGame';
 
 
 class App extends Component {
@@ -24,10 +25,10 @@ class App extends Component {
                     <NavBar/>
                     <Switch>
                         <Route path="/" exact component={Home}/>
-                        <Route path="/game" component={RunGame}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/registration" component={RegistrationForm}/>
                         <Route path="/profile" component={Profile}/>
+                        <Route path="/active_game" component={runGame}/>
                     </Switch>
                     <button onClick={() => this.buttonClick()}>Test</button>
                 </Provider>
