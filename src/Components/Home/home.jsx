@@ -22,7 +22,6 @@ class Home extends Component{
     }
 
     startNewGame(game){
-        debugger
         this.props.startGame(this.props.user, game)
     }
     
@@ -67,6 +66,17 @@ class Home extends Component{
         ));
     }
 
+    isGameActive(game){
+        debugger
+        if (this.props.currentGame.id === game.id){
+            return (
+                <Link to='/active_game'>
+                    <button onClick={() => this.joinNewGame(game)}>Join game</button>
+                </Link>
+            ) 
+        }
+    }
+
     mapGamesPlayer(){
         console.log("games items", this.props.games);
         return this.props.games.map(game => (
@@ -79,9 +89,7 @@ class Home extends Component{
                     <div class="card-footer">
                         <small class="text-muted">Minimum Players: {game.player_min}</small>
                     </div>
-                    <Link to='/active_game'>
-                        <button onClick={() => this.joinNewGame(game)}>Join game</button>
-                    </Link>
+                    {() => this.isGameActive(game)}
                 </div>
             </div>
         ));
@@ -124,7 +132,8 @@ const mapStateToProps = state => ({
     stats: state.stats.items,
     games: state.games.items,
     user: state.user.items,
-    users: state.users.items
+    users: state.users.items,
+    currentGame: state.currentGame.items
 });
 
 export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats, startGame, joinGame })(Home);

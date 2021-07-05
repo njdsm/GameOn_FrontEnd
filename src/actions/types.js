@@ -12,3 +12,6 @@ export const LOGOUT = 'LOGOUT';
 export const FETCH_PLAYER_STATS = 'FETCH_PLAYER_STATS';
 export const GET_USERS = 'GET_USERS';
 export const START_GAME = 'START_GAME';
+export const END_GAME = 'END_GAME';
+export const JOIN_GAME = 'JOIN_GAME';
+

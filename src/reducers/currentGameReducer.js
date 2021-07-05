@@ -1,4 +1,4 @@
-import { START_GAME } from '../actions/types';
+import { START_GAME, END_GAME, JOIN_GAME } from '../actions/types';
 
 const initialState = {
     items: []
@@ -14,6 +14,16 @@ export default function(state = initialState, action){
                 ...state, //previous state
                 items: action.payload //array of comment objects being pulled from the API
             };
+        case END_GAME:
+            return {
+                ...state,
+                items: action.payload
+            }
+        case JOIN_GAME:
+            return {
+                ...state,
+                items: action.payload
+            }
         default: 
             return state;
     }

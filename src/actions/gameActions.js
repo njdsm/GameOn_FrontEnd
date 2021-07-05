@@ -24,3 +24,4 @@ export const createGame = (newGame) => dispatch => {
             payload: game.data
     }));
 }
+//GET CURRENT GAME/ACTIVE GAME
