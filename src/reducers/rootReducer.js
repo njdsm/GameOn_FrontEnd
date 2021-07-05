@@ -4,6 +4,7 @@ import gameReducer from './gameReducer';
 import statsReducer from './statsReducer';
 import usersReducer from './usersReducer';
 import currentGameReducer from './currentGameReducer';
+import playersReducer from './playersReducer';
 
 export default combineReducers({
     stats: statsReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
     user: authReducer,
     users: usersReducer,
     currentGame: currentGameReducer,
+    players: playersReducer,
 });

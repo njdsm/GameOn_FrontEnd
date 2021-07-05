@@ -18,6 +18,7 @@ class App extends Component {
         console.log(store.getState())
     }
 
+
     render(){
         return (
             <div className="App">
@@ -28,7 +29,7 @@ class App extends Component {
                         <Route path="/login" component={Login}/>
                         <Route path="/registration" component={RegistrationForm}/>
                         <Route path="/profile" component={Profile}/>
-                        <Route path="/active_game" component={runGame}/>
+                        <Route path="/active_game" component={RunGame}/>
                     </Switch>
                     <button onClick={() => this.buttonClick()}>Test</button>
                 </Provider>

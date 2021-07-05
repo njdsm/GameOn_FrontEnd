@@ -15,10 +15,8 @@ class Home extends Component{
     }
 
     componentDidMount(){
-        console.log("Home Mount");
         this.props.fetchStats();
         this.props.fetchGames();
-        // this.props.fetchPlayerStats();
     }
 
     startNewGame(game){
@@ -30,7 +28,6 @@ class Home extends Component{
     }
 
     isGameActive(game){
-        debugger
         if (game.is_active === true){
             return (
                 <Link to='/active_game'>
@@ -41,7 +38,6 @@ class Home extends Component{
     }
 
     mapGames(){
-        debugger
         console.log("games items", this.props.games);
         return this.props.games.map(game => (
             <div class="row" key={game.id}>
@@ -90,7 +86,7 @@ class Home extends Component{
                     <div class="card-footer">
                         <small class="text-muted">Minimum Players: {game.player_min}</small>
                     </div>
-                    {() => this.isGameActive(game)}
+                    {this.isGameActive(game)}
                 </div>
             </div>
         ));

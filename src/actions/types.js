@@ -14,4 +14,5 @@ export const GET_USERS = 'GET_USERS';
 export const START_GAME = 'START_GAME';
 export const END_GAME = 'END_GAME';
 export const JOIN_GAME = 'JOIN_GAME';
-
+export const GET_PLAYERS = 'GET_PLAYERS';
+export const ADD_PLAYER = 'ADD_PLAYER';
