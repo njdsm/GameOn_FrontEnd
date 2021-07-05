@@ -29,7 +29,19 @@ class Home extends Component{
         this.props.joinGame(this.props.user, game)
     }
 
+    isGameActive(game){
+        debugger
+        if (game.is_active === true){
+            return (
+                <Link to='/active_game'>
+                    <button onClick={() => this.joinNewGame(game)}>Join game</button>
+                </Link>
+            ) 
+        }
+    }
+
     mapGames(){
+        debugger
         console.log("games items", this.props.games);
         return this.props.games.map(game => (
             <div class="row" key={game.id}>
@@ -64,17 +76,6 @@ class Home extends Component{
                 </div>
             </div>
         ));
-    }
-
-    isGameActive(game){
-        debugger
-        if (this.props.currentGame.id === game.id){
-            return (
-                <Link to='/active_game'>
-                    <button onClick={() => this.joinNewGame(game)}>Join game</button>
-                </Link>
-            ) 
-        }
     }
 
     mapGamesPlayer(){

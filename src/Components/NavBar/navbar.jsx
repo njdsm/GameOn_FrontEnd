@@ -64,7 +64,7 @@ class NavBar extends Component{
                                         Profile
                                     </li>
                                 </Link>
-                                <Link class="nav-link" to="/login" onClick={() => this.props.logout()}>
+                                <Link class="nav-link" to="/login" onClick={() => this.props.logout(this.props.user)}>
                                     <li>
                                         Logout
                                     </li>
