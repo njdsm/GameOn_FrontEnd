@@ -18,11 +18,12 @@ class NavBar extends Component{
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+                    <span className="main-title">GameOn</span>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav nav navbar">
                             <Link to="/" class="nav-link main-title">
                                 <li>
-                                    <strong className="main-title">GameOn</strong>
+                                    <strong className="main-title">Home</strong>
                                 </li>
                             </Link>
                             <Link to="/active_game" class="nav-link">
@@ -30,6 +31,11 @@ class NavBar extends Component{
                                     Current Game HOST
                                 </li>
                             </Link>
+                            <Link to="/profile" class="nav-link">
+                                    <li >
+                                        Profile
+                                    </li>
+                                </Link>
                             <Link class="nav-link" to="/login" onClick={() => this.props.logout(this.props.user)}>
                                 <li>
                                     Logout HOST
@@ -54,7 +60,7 @@ class NavBar extends Component{
                                         <strong className="main-title">GameOn</strong>
                                     </li>
                                 </Link>
-                                <Link to="/game" class="nav-link">
+                                <Link to="/active_game" class="nav-link">
                                     <li >
                                         Game Player
                                     </li>

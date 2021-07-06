@@ -14,11 +14,6 @@ import runGame from './Components/RunGame/runGame';
 
 class App extends Component {
 
-    buttonClick(){
-        console.log(store.getState())
-    }
-
-
     render(){
         return (
             <div className="App">
@@ -31,7 +26,6 @@ class App extends Component {
                         <Route path="/profile" component={Profile}/>
                         <Route path="/active_game" component={RunGame}/>
                     </Switch>
-                    <button onClick={() => this.buttonClick()}>Test</button>
                 </Provider>
             </div>
         );

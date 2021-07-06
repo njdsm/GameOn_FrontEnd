@@ -5,7 +5,7 @@ import { fetchGames } from '../../actions/gameActions';
 import { fetchStats } from '../../actions/statsActions';
 import { fetchPlayerStats } from '../../actions/statsActions';
 import { getUsers } from '../../actions/authActions';
-import { sendQuestion } from '../../actions/currentGameActions';
+import { endGame, sendQuestion } from '../../actions/currentGameActions';
 import axios from 'axios';
 import './runGame.css';
 
@@ -57,6 +57,10 @@ class RunGame extends Component{
         )
     }
 
+    incorrect(answer){
+        this.deleteAnswer(answer)
+    }
+
     correct(answer){
         this.deleteAnswer(answer)
         let newPhone = answer.phone
@@ -66,18 +70,49 @@ class RunGame extends Component{
     }
 
     mapAnswerToUser(phone){
-        debugger
         let player = this.props.users.map((user) => {
             if (user.phone === phone){
                 user.score += 1;
             }
         })
-        
+    }
+
+    createNewStat(stat){
+        axios.post("http://127.0.0.1:8000/stats/", stat)
+    }
+
+    addPoints(user){
+        user.points += 100
+        axios.put("http://127.0.0.1:8000/users/" + user.id + "/", user)
+    }
+
+    endGame(){
+        let users = this.props.users;
+        console.log(users);
+        users.sort((a,b) => (a.score < b.score) ? 1 : ((b.score < a.score) ? -1 : 0))
+        console.log(users);
+        for (let i = users.length - 1; i >= 0; i--) {
+            let newStat = {
+                "placement": i + 1,
+                "game": this.props.currentGame.data.id,
+                "player": users[i].id
+            };
+            if (i == 1){
+                this.addPoints(users[i])
+            }
+            this.createNewStat(newStat);
+        }
+
+        users.map((user) => {
+            let createStat = {
+                "temp": "temp"
+            }
+        })
     }
 
     render(){
-        if (this.props.user.length !== 0 && this.props.user.host === true){
-            if (this.props.currentGame){
+        if (this.props.user.length !== 0 ){
+            if (this.props.currentGame.length != 0 && this.props.user.host === true){
                 return(
                     <div>
                         {this.props.currentGame.data.name}
@@ -94,7 +129,6 @@ class RunGame extends Component{
                                 </tr>
                             ))}
                             </table>
-                            
                         </div>
                         <form onSubmit={(e) => this.onSubmit(e)}>
                             <h1>Question: </h1>
@@ -118,22 +152,45 @@ class RunGame extends Component{
                                 ))}
                             </div>
                             <button onClick={() => this.getAnswers()} >Get Answers</button>
+                            <button onClick={() => this.endGame()}>End Game</button>
                         </div>
                     </div>
                 )
             }
-            else{
+            else if (this.props.user.length !== 0 && this.props.currentGame.length != 0){
                 return(
                     <div>
                         <div>Active Game!</div>
+                        {this.props.currentGame.data.name}
+                        <div>ScoreBoard
+                            <table className="table table-dark">
+                                <tr>
+                                    <td>Player</td>
+                                    <td>Score</td>
+                                </tr>
+                                {this.props.users.map(user => (
+                                <tr>
+                                    <td>{user.user_name}</td>
+                                    <td>{user.score}</td>
+                                </tr>
+                            ))}
+                            </table>
+                        </div>
                     </div>
                 );
             }
+            else{
+                return(
+                    <div>No Game</div>
+                )
+            }
         }
     
-        else if (this.props.user.length !== 0 ){
+        else if (this.props.user.length !== 0 &&  this.props.currentGame.length !== 0){
             return(
-                <div>Play a Game!</div>
+                <div>
+                    <div>Play a Game!</div>
+                </div>
             );
         }
         else {

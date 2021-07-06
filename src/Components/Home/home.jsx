@@ -66,9 +66,7 @@ class Home extends Component{
                     <div class="card-footer">
                         <small class="text-muted">Minimum Players: {game.player_min}</small>
                     </div>
-                    <Link to="/active_game">
-                        <button onClick={() => this.startNewGame(game)}>Start game</button>
-                    </Link>
+                    <button onClick={() => this.startNewGame(game)}>Start game</button>
                 </div>
             </div>
         ));
