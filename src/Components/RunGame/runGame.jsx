@@ -15,7 +15,8 @@ class RunGame extends Component{
         super(props);
         this.state={
             question: '',
-            answers: []
+            answers: [],
+            players: [],
         }
     }
 
@@ -31,12 +32,20 @@ class RunGame extends Component{
         });
     }
 
+    isPlaying(user){
+        return user.is_playing === this.props.currentGame.data.id;
+    }
+
     onSubmit(e){
         e.preventDefault();
         const question = {
             question: this.state.question,
         }
-        this.props.sendQuestion(question);
+        this.props.users.map((player) => {
+            if (this.isPlaying(player)){
+                this.props.sendQuestion(question, player)
+            }
+        })
         this.setState({question: ""})
     }
 

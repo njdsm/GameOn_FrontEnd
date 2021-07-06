@@ -21,6 +21,11 @@ class Home extends Component{
 
     startNewGame(game){
         this.props.startGame(this.props.user, game)
+        for (let i = 0; i < this.props.users.length; i++){
+            if (this.props.users[i].logged_in === 1){
+                this.props.sendQuestion("Starting a new Trivia game! " + game.name + "! Join us now!", this.props.users[i])
+            }
+        }
     }
     
     joinNewGame(game){
@@ -30,9 +35,7 @@ class Home extends Component{
     isGameActive(game){
         if (game.is_active === true){
             return (
-                <Link to='/active_game'>
-                    <button onClick={() => this.joinNewGame(game)}>Join game</button>
-                </Link>
+                <button onClick={() => this.joinNewGame(game)}>Join game</button>
             ) 
         }
     }
@@ -121,6 +124,7 @@ Home.propTypes = {
     fetchPlayerStats: PropTypes.func.isRequired,
     startGame: PropTypes.func.isRequired,
     joinGame: PropTypes.func.isRequired,
+    sendQuestion: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
