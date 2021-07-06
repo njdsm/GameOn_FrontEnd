@@ -17,7 +17,8 @@ export const createGame = (newGame) => dispatch => {
             name: newGame.name,
             description: newGame.description,
             player_min: newGame.player_min,
-            owner_id: newGame.owner_id
+            owner: newGame.owner_id,
+            is_active: newGame.is_active
         })
         .then(game => dispatch({
             type: CREATE_GAME,

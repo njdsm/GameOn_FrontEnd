@@ -9,6 +9,7 @@ import RunGame from './Components/RunGame/runGame';
 import RegistrationForm from './Components/RegistrationForm/registrationForm'
 import { Component } from 'react';
 import store from './store';
+import createGame from './Components/CreateGame/createGame'
 import runGame from './Components/RunGame/runGame';
 
 
@@ -25,6 +26,7 @@ class App extends Component {
                         <Route path="/registration" component={RegistrationForm}/>
                         <Route path="/profile" component={Profile}/>
                         <Route path="/active_game" component={RunGame}/>
+                        <Route path="/create_game" component={createGame}/>
                     </Switch>
                 </Provider>
             </div>
