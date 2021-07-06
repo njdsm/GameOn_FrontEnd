@@ -1,4 +1,4 @@
-import { START_GAME, END_GAME, JOIN_GAME } from '../actions/types';
+import { START_GAME, END_GAME, JOIN_GAME, SEND_QUESTION } from '../actions/types';
 
 const initialState = {
     items: []
@@ -20,6 +20,11 @@ export default function(state = initialState, action){
                 items: action.payload
             }
         case JOIN_GAME:
+            return {
+                ...state,
+                items: action.payload
+            }
+        case SEND_QUESTION:
             return {
                 ...state,
                 items: action.payload

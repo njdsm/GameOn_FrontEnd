@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { START_GAME, END_GAME, JOIN_GAME, GET_PLAYERS, ADD_PLAYER } from './types';
+import { START_GAME, END_GAME, JOIN_GAME, GET_PLAYERS, ADD_PLAYER, SEND_QUESTION } from './types';
 
 //each action creator is a function
 //thunk middleware allows us to call dispatch function directly so we can make asynchronous requests
@@ -16,6 +16,10 @@ export const startGame = (user, game) => dispatch => {
             type: GET_PLAYERS,
             payload: players
         }))
+}
+
+export const sendQuestion = (question) => dispatch => {
+    axios.post('http://127.0.0.1:8000/current_game/message/', question)
 }
 
 export const endGame = (game) => dispatch => {
