@@ -1,7 +1,7 @@
 import { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { fetchGames } from '../../actions/gameActions';
 import { fetchStats, fetchPlayerStats } from '../../actions/statsActions';
 import { startGame, joinGame } from '../../actions/currentGameActions'

@@ -5,7 +5,7 @@ import { fetchGames } from '../../actions/gameActions';
 import { fetchStats } from '../../actions/statsActions';
 import { fetchPlayerStats } from '../../actions/statsActions';
 import { getUsers } from '../../actions/authActions';
-import { endGame, sendQuestion } from '../../actions/currentGameActions';
+import { sendQuestion } from '../../actions/currentGameActions';
 import axios from 'axios';
 import './runGame.css';
 
@@ -23,7 +23,6 @@ class RunGame extends Component{
         console.log("Home Mount");
         this.props.fetchGames();
         this.props.getUsers();
-        // this.props.fetchPlayerStats();
     }
 
     onChange(e){
@@ -112,7 +111,7 @@ class RunGame extends Component{
 
     render(){
         if (this.props.user.length !== 0 ){
-            if (this.props.currentGame.length != 0 && this.props.user.host === true){
+            if (this.props.currentGame.length !== 0 && this.props.user.host === true){
                 return(
                     <div>
                         {this.props.currentGame.data.name}
@@ -157,7 +156,7 @@ class RunGame extends Component{
                     </div>
                 )
             }
-            else if (this.props.user.length !== 0 && this.props.currentGame.length != 0){
+            else if (this.props.user.length !== 0 && this.props.currentGame.length !== 0){
                 return(
                     <div>
                         <div>Active Game!</div>

@@ -15,12 +15,6 @@ class Profile extends Component{
             wins: 0
         }
         this.fetchPlayerStats(this.props.user)
-        
-    }
-
-    componentDidMount(){
-        console.log("Profile Mount");
-        console.log(this.state.playerStats)
     }
 
     fetchPlayerStats(user){
@@ -37,12 +31,8 @@ class Profile extends Component{
 
     gameStatCheck(stat, game){
         try{
-            console.log(stat)
-            console.log(game)
-            console.log(this.props.user)
-            console.log(stat.game_id + "   " + game.id)
-            if (stat.game == game.id && stat.player == this.props.user.id){
-                if (stat.placement == 1){
+            if (stat.game === game.id && stat.player === this.props.user.id){
+                if (stat.placement === 1){
                     this.state.wins = this.state.wins + 1
                 }
 
@@ -57,7 +47,6 @@ class Profile extends Component{
         catch{
             return
         }
-       
     }
 
     mapGames(){

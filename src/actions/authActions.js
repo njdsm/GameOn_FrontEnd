@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER, LOGOUT, REGISTER_USER, GET_USERS } from './types';
+import { LOGIN, LOGOUT, REGISTER_USER, GET_USERS } from './types';
 import axios from 'axios';
 
 //each action creator is a function

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { START_GAME, END_GAME, JOIN_GAME, GET_PLAYERS, ADD_PLAYER, SEND_QUESTION } from './types';
+import { START_GAME, END_GAME, JOIN_GAME, GET_PLAYERS, ADD_PLAYER } from './types';
 
 //each action creator is a function
 //thunk middleware allows us to call dispatch function directly so we can make asynchronous requests
