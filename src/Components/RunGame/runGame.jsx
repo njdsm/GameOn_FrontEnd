@@ -44,7 +44,6 @@ class RunGame extends Component{
         const question = {
             question: this.state.question,
         }
-        debugger
         this.props.users.map((player) => {
             if (this.isPlaying(player, game)){
                 this.props.sendQuestion(question, player)
@@ -99,7 +98,19 @@ class RunGame extends Component{
     }
 
     endGame(game){
-        let users = this.props.users;
+        let users = this.props.users.map((player) => {
+            if (this.isPlaying(player, game)){
+                player.is_playing = 0;
+                player.score = 0;
+                axios.put("http://127.0.0.1:8000/users/" + player.id + "/", player)
+                return player;
+            }
+            else {
+                return null
+            }
+        }).filter(function(user) {
+            return user !== null
+        })
         users.sort((a,b) => (a.score < b.score) ? 1 : ((b.score < a.score) ? -1 : 0))
         for (let i = users.length - 1; i >= 0; i--) {
             let newStat = {
