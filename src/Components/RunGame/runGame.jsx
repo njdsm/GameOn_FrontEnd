@@ -6,6 +6,7 @@ import { fetchStats } from '../../actions/statsActions';
 import { fetchPlayerStats } from '../../actions/statsActions';
 import { getUsers } from '../../actions/authActions';
 import { sendQuestion } from '../../actions/currentGameActions';
+import { endGame } from '../../actions/currentGameActions';
 import axios from 'axios';
 import './runGame.css';
 
@@ -18,12 +19,14 @@ class RunGame extends Component{
             answers: [],
             players: [],
         }
+        this.props.fetchGames()
+        this.props.getUsers()
     }
 
     componentDidMount(){
-        console.log("Home Mount");
         this.props.fetchGames();
         this.props.getUsers();
+        console.log("Home Mount", this.props.users);
     }
 
     onChange(e){
@@ -32,17 +35,18 @@ class RunGame extends Component{
         });
     }
 
-    isPlaying(user){
-        return user.is_playing === this.props.currentGame.data.id;
+    isPlaying(user, game){
+        return user.is_playing === game.id;
     }
 
-    onSubmit(e){
+    onSubmit(e, game){
         e.preventDefault();
         const question = {
             question: this.state.question,
         }
+        debugger
         this.props.users.map((player) => {
-            if (this.isPlaying(player)){
+            if (this.isPlaying(player, game)){
                 this.props.sendQuestion(question, player)
             }
         })
@@ -94,15 +98,13 @@ class RunGame extends Component{
         axios.put("http://127.0.0.1:8000/users/" + user.id + "/", user)
     }
 
-    endGame(){
+    endGame(game){
         let users = this.props.users;
-        console.log(users);
         users.sort((a,b) => (a.score < b.score) ? 1 : ((b.score < a.score) ? -1 : 0))
-        console.log(users);
         for (let i = users.length - 1; i >= 0; i--) {
             let newStat = {
                 "placement": i + 1,
-                "game": this.props.currentGame.data.id,
+                "game": game.id,
                 "player": users[i].id
             };
             if (i == 1){
@@ -110,96 +112,105 @@ class RunGame extends Component{
             }
             this.createNewStat(newStat);
         }
+        this.props.endGame(game)
+    }
 
-        users.map((user) => {
-            let createStat = {
-                "temp": "temp"
-            }
-        })
+    scoreboardRender(user, game){
+        if (user.is_playing === game.id){
+            return (
+                <tr>
+                    <td>{user.user_name}</td>
+                    <td>{user.score}</td>
+                </tr>
+            )
+        }
+    }
+
+    hostRender(game){
+        if (game.is_active === true){
+            return (
+                <div>
+                    {game.name}
+                    <div>ScoreBoard
+                        <table className="table table-dark">
+                            <tr>
+                                <td>Player</td>
+                                <td>Score</td>
+                            </tr>
+                            {this.props.users.map(user => (
+                                this.scoreboardRender(user, game)
+                            ))}
+                        </table>
+                    </div>
+                    <form onSubmit={(e) => this.onSubmit(e, game)}>
+                        <h1>Question: </h1>
+                        <input type="text" name="question" id="question" onChange={(e) => this.onChange(e)} value={this.state.question}/>
+                        <button type="submit">Send</button>
+                    </form>
+                    <div>
+                        Answers
+                        <div>
+                            {this.state.answers.map(answer => (
+                                <div class="row" key={answer.id}>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title game-name">{answer.phone}</h5>
+                                            <p class="card-text">{answer.answer}</p>
+                                        </div>
+                                        <button onClick={() => this.correct(answer)} className="btn btn-success">Correct</button>
+                                        <button onClick={() => this.incorrect(answer)} className="btn btn-danger">Incorrect</button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <button onClick={() => this.getAnswers()} >Get Answers</button>
+                        <button onClick={() => this.endGame(game)}>End Game</button>
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    playerRender(game){
+        if (game.id === this.props.user.is_playing){
+            return(
+                <div>
+                    <div>Active Game!</div>
+                    {game.name}
+                    <div>ScoreBoard
+                        <table className="table table-dark">
+                            <tr>
+                                <td>Player</td>
+                                <td>Score</td>
+                            </tr>
+                            {this.props.users.map(user => (
+                                this.scoreboardRender(user, game)
+                            ))}
+                        </table>
+                    </div>
+                </div>
+            );
+        }
     }
 
     render(){
-        if (this.props.user.length !== 0 ){
-            if (this.props.currentGame.length !== 0 && this.props.user.host === true){
-                return(
-                    <div>
-                        {this.props.currentGame.data.name}
-                        <div>ScoreBoard
-                            <table className="table table-dark">
-                                <tr>
-                                    <td>Player</td>
-                                    <td>Score</td>
-                                </tr>
-                                {this.props.users.map(user => (
-                                <tr>
-                                    <td>{user.user_name}</td>
-                                    <td>{user.score}</td>
-                                </tr>
-                            ))}
-                            </table>
-                        </div>
-                        <form onSubmit={(e) => this.onSubmit(e)}>
-                            <h1>Question: </h1>
-                            <input type="text" name="question" id="question" onChange={(e) => this.onChange(e)} value={this.state.question}/>
-                            <button type="submit">Send</button>
-                        </form>
-                        <div>
-                            Answers
-                            <div>
-                                {this.state.answers.map(answer => (
-                                    <div class="row" key={answer.id}>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title game-name">{answer.phone}</h5>
-                                                <p class="card-text">{answer.answer}</p>
-                                            </div>
-                                            <button onClick={() => this.correct(answer)} className="btn btn-success">Correct</button>
-                                            <button onClick={() => this.incorrect(answer)} className="btn btn-danger">Incorrect</button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                            <button onClick={() => this.getAnswers()} >Get Answers</button>
-                            <button onClick={() => this.endGame()}>End Game</button>
-                        </div>
-                    </div>
-                )
-            }
-            else if (this.props.user.length !== 0 && this.props.currentGame.length !== 0){
-                return(
-                    <div>
-                        <div>Active Game!</div>
-                        {this.props.currentGame.data.name}
-                        <div>ScoreBoard
-                            <table className="table table-dark">
-                                <tr>
-                                    <td>Player</td>
-                                    <td>Score</td>
-                                </tr>
-                                {this.props.users.map(user => (
-                                <tr>
-                                    <td>{user.user_name}</td>
-                                    <td>{user.score}</td>
-                                </tr>
-                            ))}
-                            </table>
-                        </div>
-                    </div>
-                );
-            }
-            else{
-                return(
-                    <div>No Game</div>
-                )
-            }
-        }
-    
-        else if (this.props.user.length !== 0 &&  this.props.currentGame.length !== 0){
-            return(
+        if (this.props.user.length !== 0 && this.props.user.host === true){
+            return (
                 <div>
-                    <div>Play a Game!</div>
+                    {this.props.games.map(game => (
+                        this.hostRender(game)
+                    ))} 
                 </div>
-            );
+            )
+        }
+        else if (this.props.user.length !== 0){
+            return (
+                <div>
+                    {this.props.games.map(game => (
+                        this.playerRender(game)
+                    ))}
+                </div>
+            )
         }
         else {
             return(
@@ -214,7 +225,8 @@ RunGame.propTypes = {
     fetchGames: PropTypes.func.isRequired,
     fetchPlayerStats: PropTypes.func.isRequired,
     getUsers: PropTypes.func.isRequired,
-    sendQuestion: PropTypes.func.isRequired
+    sendQuestion: PropTypes.func.isRequired,
+    endGame: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -226,4 +238,4 @@ const mapStateToProps = state => ({
     players: state.players.items
 });
 
-export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats, getUsers, sendQuestion })(RunGame);
+export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats, getUsers, sendQuestion, endGame })(RunGame);

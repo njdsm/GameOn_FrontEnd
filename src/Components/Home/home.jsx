@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchGames } from '../../actions/gameActions';
 import { fetchStats, fetchPlayerStats } from '../../actions/statsActions';
-import { startGame, joinGame } from '../../actions/currentGameActions'
+import { startGame, joinGame, sendQuestion } from '../../actions/currentGameActions'
 
 import './home.css';
 
@@ -22,8 +22,9 @@ class Home extends Component{
     startNewGame(game){
         this.props.startGame(this.props.user, game)
         for (let i = 0; i < this.props.users.length; i++){
-            if (this.props.users[i].logged_in === 1){
-                this.props.sendQuestion("Starting a new Trivia game! " + game.name + "! Join us now!", this.props.users[i])
+            if (this.props.users[i].logged_in === true){
+                let question = {"question": "Starting a new Trivia game! " + game.name + "! Join us now!"}
+                this.props.sendQuestion(question, this.props.users[i])
             }
         }
     }
@@ -135,4 +136,4 @@ const mapStateToProps = state => ({
     currentGame: state.currentGame.items
 });
 
-export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats, startGame, joinGame })(Home);
+export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats, startGame, joinGame, sendQuestion })(Home);

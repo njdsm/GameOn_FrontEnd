@@ -34,7 +34,8 @@ export const endGame = (game) => dispatch => {
 }
 
 export const joinGame = (user, game) => dispatch => {
-    user.is_playing = true
+    debugger
+    user.is_playing = game.id
     axios.put('http://127.0.0.1:8000/users/' + user.id + '/', user)
     axios.post('http://127.0.0.1:8000/current_game/', {"player_id": user.id, "user_name": user.user_name, "phone": user.phone}).then(
         player => dispatch({
