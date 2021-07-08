@@ -1,22 +1,29 @@
 import { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { fetchGames } from '../../actions/gameActions';
 import { fetchStats, fetchPlayerStats } from '../../actions/statsActions';
 import { startGame, joinGame, sendQuestion } from '../../actions/currentGameActions'
-
+import { getHost } from '../../actions/hostActions';
 import './home.css';
 
 
 class Home extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            password: ""
+        }
     }
 
     componentDidMount(){
         this.props.fetchStats();
-        this.props.fetchGames();
+        this.props.fetchGames(this.props.host);
+    }
+
+    componentDidUpdate(){
+        this.props.fetchGames(this.props.host)
+        console.log(this.props.host)
     }
 
     startNewGame(game){
@@ -41,6 +48,28 @@ class Home extends Component{
         }
     }
 
+    getHostedGames(){
+        let games = [];
+        for (let i = 0; i < this.props.games.length; i++){
+            if (this.props.games[i].owner == this.props.host.id){
+                games.push(this.props.games[i]);
+            }
+        }
+        return games;
+    }
+
+    onChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    onSubmit(e){
+        e.preventDefault();
+        this.props.getHost(this.state.password)
+        this.setState({password: ""})
+    }
+
     mapGames(){
         console.log("games items", this.props.games);
         return this.props.games.map(game => (
@@ -49,6 +78,7 @@ class Home extends Component{
                     <div class="card-body">
                         <h5 class="card-title game-name">{game.name}</h5>
                         <p class="card-text">{game.description}</p>
+                        <p>{game.owner}</p>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">Minimum Players: {game.player_min}</small>
@@ -60,7 +90,8 @@ class Home extends Component{
 
     mapGamesHost(){
         console.log("games items", this.props.games);
-        return this.props.games.map(game => (
+        let games = this.getHostedGames();
+        return games.map(game => (
             <div class="row" key={game.id}>
                 <div class="card">
                     <div class="card-body">
@@ -78,7 +109,22 @@ class Home extends Component{
 
     mapGamesPlayer(){
         console.log("games items", this.props.games);
-        return this.props.games.map(game => (
+        if (!this.props.host.id){
+            return(
+                <div>
+                    <h3>No host identified. Try again with their login code!</h3>
+                    <form onSubmit = {(e) => this.onSubmit(e)} >
+                    <div className="form-group d-flex flex-column">
+                        <label htmlFor="password">Login Code: </label>
+                        <input className="form-rounded form-control" type="text" name="password" onChange={(e) => this.onChange(e)} value={this.state.password} spellCheck="false"/>
+                        <button className="btn btn-success" type="submit">Sign Up!</button>
+                    </div>
+                </form>
+                </div>
+            )
+        }
+        let games = this.getHostedGames();
+        return games.map(game => (
             <div class="row" key={game.id}>
                 <div class="card">
                     <div class="card-body">
@@ -125,7 +171,8 @@ Home.propTypes = {
     fetchPlayerStats: PropTypes.func.isRequired,
     startGame: PropTypes.func.isRequired,
     joinGame: PropTypes.func.isRequired,
-    sendQuestion: PropTypes.func.isRequired
+    sendQuestion: PropTypes.func.isRequired,
+    getHost: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -133,7 +180,8 @@ const mapStateToProps = state => ({
     games: state.games.items,
     user: state.user.items,
     users: state.users.items,
-    currentGame: state.currentGame.items
+    currentGame: state.currentGame.items,
+    host: state.host.items
 });
 
-export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats, startGame, joinGame, sendQuestion })(Home);
+export default connect(mapStateToProps, { fetchGames, fetchStats, fetchPlayerStats, startGame, joinGame, sendQuestion, getHost })(Home);

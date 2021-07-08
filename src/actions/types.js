@@ -18,3 +18,6 @@ export const GET_PLAYERS = 'GET_PLAYERS';
 export const ADD_PLAYER = 'ADD_PLAYER';
 export const SEND_QUESTION = 'SEND_QUESTION';
 export const REDEEM = 'REDEEM';
+export const CREATE_HOST = 'CREATE_HOST';
+export const GET_HOST = 'GET_HOST';
+export const UPDATE_HOST = 'UPDATE_HOST';

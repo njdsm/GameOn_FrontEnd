@@ -5,6 +5,7 @@ import statsReducer from './statsReducer';
 import usersReducer from './usersReducer';
 import currentGameReducer from './currentGameReducer';
 import playersReducer from './playersReducer';
+import hostReducer from './hostReducer';
 
 export default combineReducers({
     stats: statsReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
     users: usersReducer,
     currentGame: currentGameReducer,
     players: playersReducer,
+    host: hostReducer,
 });

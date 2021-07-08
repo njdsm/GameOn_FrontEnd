@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER_USER, LOGOUT, REDEEM, CREATE_HOST } from '../actions/types';
+import { GET_HOST, UPDATE_HOST } from '../actions/types';
 
 const initialState = {
     items: []
@@ -9,27 +9,12 @@ const initialState = {
 // eslint-disable-next-line
 export default function(state = initialState, action){
     switch(action.type){ 
-        case LOGIN:
+        case GET_HOST:
             return {
                 ...state, //previous state
                 items: action.payload //array of comment objects being pulled from the API
             };
-        case REGISTER_USER:
-            return {
-                ...state,
-                items: action.payload
-            }
-        case LOGOUT:
-            return {
-                ...state,
-                items: action.payload
-            }
-        case REDEEM:
-            return {
-                ...state,
-                items: action.payload
-            }
-        case CREATE_HOST:
+        case UPDATE_HOST:
             return {
                 ...state,
                 items: action.payload

@@ -18,7 +18,6 @@ class NavBar extends Component{
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <span className="main-title">GameOn</span>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav nav navbar">
                             <Link to="/" class="nav-link main-title">
@@ -58,7 +57,6 @@ class NavBar extends Component{
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <span className="main-title">GameOn</span>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav nav navbar">
                                 <Link to="/" class="nav-link main-title">
@@ -74,6 +72,11 @@ class NavBar extends Component{
                                 <Link to="/profile" class="nav-link">
                                     <li >
                                         Profile
+                                    </li>
+                                </Link>
+                                <Link to="/become_host" class="nav-link">
+                                    <li>
+                                        Become a Host
                                     </li>
                                 </Link>
                                 <Link class="nav-link" to="/login" onClick={() => this.props.logout(this.props.user)}>
@@ -93,7 +96,6 @@ class NavBar extends Component{
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <span className="main-title">GameOn</span>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <Link to="/" class="nav-link main-title">

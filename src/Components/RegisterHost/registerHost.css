@@ -1,14 +1,9 @@
-.navbar-collapse{
-    justify-content: left;
-}
-
-.main-title{
-    text-decoration-style: double;
-    color: gold;
-}
-
 .form {
     width: 100%;
+}
+
+.form button {
+    width: 100px;
 }
 
 .form label {

@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, REGISTER_USER, GET_USERS, REDEEM } from './types';
+import { LOGIN, LOGOUT, REGISTER_USER, GET_USERS, REDEEM, CREATE_HOST } from './types';
 import axios from 'axios';
 
 //each action creator is a function
@@ -66,11 +66,25 @@ export const logout = (user) => dispatch => {
 
 export const redeemPoints = (user) => dispatch => {
     try {
-        console.log(user)
         axios.put('http://127.0.0.1:8000/users/' + user.id + '/', user).then(
             dispatch({
                 type: REDEEM,
                 payload: user
+            })
+        )
+    }
+    catch(error){
+        alert(`Whoops! ${error}. Looks like we're having some technical difficulties. Try again later!`)
+    }
+}
+
+export const becomeHost = (host) => dispatch => {
+    try {
+        console.log(host)
+        axios.post('http://127.0.0.1:8000/owners/', host).then(
+            dispatch({
+                type: CREATE_HOST,
+                payload: host
             })
         )
     }

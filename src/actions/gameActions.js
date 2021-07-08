@@ -4,12 +4,17 @@ import axios from 'axios';
 //each action creator is a function
 //thunk middleware allows us to call dispatch function directly so we can make asynchronous requests
 //dispatch is like resolving a promise; dispatch allows for sending of data
-export const fetchGames = () => dispatch => {
-    axios.get('http://127.0.0.1:8000/games/')
+export const fetchGames = (host) => dispatch => {
+    try{
+        axios.get('http://127.0.0.1:8000/games/' + host.id + "/")
         .then(games => dispatch({
             type: FETCH_GAMES,
             payload: games.data
-    }));
+        }));
+    }
+    catch(e){
+        console.log(e)
+    }
 }
 
 export const createGame = (newGame) => dispatch => {

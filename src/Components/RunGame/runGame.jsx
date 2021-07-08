@@ -27,7 +27,6 @@ class RunGame extends Component{
     componentDidMount(){
         this.props.fetchGames();
         this.props.getUsers();
-        console.log("Home Mount", this.props.users);
     }
 
     onChange(e){
