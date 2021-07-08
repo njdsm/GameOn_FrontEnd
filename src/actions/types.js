@@ -17,3 +17,4 @@ export const JOIN_GAME = 'JOIN_GAME';
 export const GET_PLAYERS = 'GET_PLAYERS';
 export const ADD_PLAYER = 'ADD_PLAYER';
 export const SEND_QUESTION = 'SEND_QUESTION';
+export const REDEEM = 'REDEEM';

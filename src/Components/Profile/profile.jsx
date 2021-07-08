@@ -2,6 +2,7 @@ import { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchGames } from '../../actions/gameActions';
+import { redeemPoints } from '../../actions/authActions';
 import axios from 'axios'
 import './profile.css';
 
@@ -12,9 +13,17 @@ class Profile extends Component{
         this.state={
             playerStats: [],
             render: "Loading",
-            wins: 0
+            wins: 0,
+            amount: "",
+            points: this.props.user.points
         }
         this.fetchPlayerStats(this.props.user)
+    }
+
+    onChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
 
     fetchPlayerStats(user){
@@ -64,9 +73,54 @@ class Profile extends Component{
         ));
     }
 
+    redeemPoints(amount){
+        console.log(this.state.amount)
+        amount = parseInt(amount)
+        if (isNaN(amount)){
+            alert("Please enter a valid number.")
+        }
+        else if (amount <= this.props.user.points){
+            this.props.user.points -= amount;
+            this.setState({points: this.props.user.points})
+            this.props.redeemPoints(this.props.user);
+        }
+        else{
+            alert("You don't have that many points brother!")
+        }
+        console.log(this.props.user.points)
+    }
+
     render(){
         return(
             <div>
+                <h1>{this.props.user.user_name}'s profile</h1>
+                <h3>Reward Points: {this.state.points}</h3>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Redeem Points
+                </button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title modal-text" id="exampleModalLabel">Redeem Points</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p className="modal-text">How many points would you like to redeem at this time?</p>
+                                <input type="text" name="amount" id="redeem" onChange={(e) => this.onChange(e)} value={this.state.amount}/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" onClick={() => this.redeemPoints(this.state.amount)} data-dismiss="modal" class="btn btn-primary">Redeem</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
                 {this.state.render}
                 <h5>Overall Wins: {this.state.wins}</h5>
             </div>
@@ -77,6 +131,7 @@ class Profile extends Component{
 
 Profile.propTypes = {
     fetchGames: PropTypes.func.isRequired,
+    redeemPoints: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -84,4 +139,4 @@ const mapStateToProps = state => ({
     user: state.user.items
 });
 
-export default connect(mapStateToProps, { fetchGames })(Profile);
+export default connect(mapStateToProps, { fetchGames, redeemPoints })(Profile);
