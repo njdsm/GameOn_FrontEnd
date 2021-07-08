@@ -5,6 +5,7 @@ import { fetchGames } from '../../actions/gameActions';
 import { redeemPoints } from '../../actions/authActions';
 import axios from 'axios'
 import './profile.css';
+import { sendQuestion } from "../../actions/currentGameActions";
 
 
 class Profile extends Component{
@@ -83,6 +84,8 @@ class Profile extends Component{
             this.props.user.points -= amount;
             this.setState({points: this.props.user.points})
             this.props.redeemPoints(this.props.user);
+            let payload = {"REDEEM": amount}
+            this.props.sendQuestion(payload, this.props.user)
         }
         else{
             alert("You don't have that many points brother!")
@@ -131,7 +134,8 @@ class Profile extends Component{
 
 Profile.propTypes = {
     fetchGames: PropTypes.func.isRequired,
-    redeemPoints: PropTypes.func.isRequired
+    redeemPoints: PropTypes.func.isRequired,
+    sendQuestion: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -139,4 +143,4 @@ const mapStateToProps = state => ({
     user: state.user.items
 });
 
-export default connect(mapStateToProps, { fetchGames, redeemPoints })(Profile);
+export default connect(mapStateToProps, { fetchGames, redeemPoints, sendQuestion })(Profile);

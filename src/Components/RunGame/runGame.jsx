@@ -8,6 +8,7 @@ import { getUsers } from '../../actions/authActions';
 import { sendQuestion } from '../../actions/currentGameActions';
 import { endGame } from '../../actions/currentGameActions';
 import axios from 'axios';
+import _ from 'underscore';
 import './runGame.css';
 
 
@@ -111,15 +112,15 @@ class RunGame extends Component{
         }).filter(function(user) {
             return user !== null
         })
-        users.sort((a,b) => (a.score < b.score) ? 1 : ((b.score < a.score) ? -1 : 0))
-        for (let i = users.length - 1; i >= 0; i--) {
+        var sortedUsers = _.sortBy( users, 'points' );
+        for (let i = sortedUsers.length -1; i >= 0; i--) {
             let newStat = {
-                "placement": i + 1,
+                "placement": sortedUsers.length - i,
                 "game": game.id,
-                "player": users[i].id
+                "player": sortedUsers[i].id
             };
-            if (i == 1){
-                this.addPoints(users[i])
+            if (newStat.placement == 1){
+                this.addPoints(sortedUsers[i])
             }
             this.createNewStat(newStat);
         }
