@@ -103,12 +103,8 @@ class RunGame extends Component{
     }
 
     endGame(game){
-        debugger
         let users = this.props.users.map((player) => {
             if (this.isPlaying(player, game)){
-                player.is_playing = 0;
-                player.score = 0;
-                axios.put("http://127.0.0.1:8000/users/" + player.id + "/", player)
                 return player;
             }
             else {
@@ -117,7 +113,7 @@ class RunGame extends Component{
         }).filter(function(user) {
             return user !== null
         })
-        var sortedUsers = _.sortBy( users, 'points' );
+        var sortedUsers = _.sortBy( users, 'score' );
         for (let i = sortedUsers.length -1; i >= 0; i--) {
             let newStat = {
                 "placement": sortedUsers.length - i,
@@ -129,6 +125,14 @@ class RunGame extends Component{
             }
             this.createNewStat(newStat);
         }
+        sortedUsers.map((user) => {
+            let payload = {
+                "is_playing": 0,
+                "score": 0
+            }
+            axios.put("http://127.0.0.1:8000/users/" + user.id + "/", payload)
+
+        })
         this.props.endGame(game)
     }
 
@@ -189,7 +193,7 @@ class RunGame extends Component{
     }
 
     playerRender(game){
-        if (game.id === this.props.user.is_playing){
+        if (game.id === this.props.user.is_playing && game.is_active === true){
             return(
                 <div>
                     <div>Active Game!</div>
