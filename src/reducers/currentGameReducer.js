@@ -20,6 +20,7 @@ export default function(state = initialState, action){
                 items: action.payload
             }
         case JOIN_GAME:
+            console.log(action.payload)
             return {
                 ...state,
                 items: action.payload

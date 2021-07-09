@@ -108,6 +108,11 @@ class NavBar extends Component{
                                     Login
                                 </li>
                             </Link>
+                            <Link to="/login_host" class="nav-link">
+                                <li class="navbar-brand nav-item">
+                                    Login as Host
+                                </li>
+                            </Link>
                             <Link to="/registration" class="nav-link">
                                 <li class="navbar-brand nav-item">
                                     SignUp

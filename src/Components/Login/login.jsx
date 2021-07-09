@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login } from '../../actions/authActions';
+import { login, login_host } from '../../actions/authActions';
 import { getHost } from '../../actions/hostActions';
 import './login.css';
 
@@ -28,7 +28,12 @@ class Login extends Component {
             user_name: this.state.username,
             password: this.state.password
         }
-        this.props.login(user);
+        if (window.location.pathname === "/login_host"){
+            this.props.login_host(user)
+        }
+        else {
+            this.props.login(user);
+        }
         this.props.getHost(this.state.key);
         this.setState({username: "", password: "", key: ""})
     }
@@ -55,7 +60,8 @@ class Login extends Component {
 }
 Login.propTypes = {
     login: PropTypes.func.isRequired,
+    login_host: PropTypes.func.isRequired,
     getHost: PropTypes.func.isRequired,
 };
 
-export default connect(null, { login, getHost })(Login);
+export default connect(null, { login, login_host, getHost })(Login);

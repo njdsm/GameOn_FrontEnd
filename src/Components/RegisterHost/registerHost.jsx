@@ -13,6 +13,7 @@ class RegisterHost extends Component {
             name: "",
             address: "",
             key: "",
+            phone: ""
         }
     }
 
@@ -49,6 +50,9 @@ class RegisterHost extends Component {
                         <br/>
                         <label htmlFor="address">Address: </label>
                         <input className="form-rounded form-control" type="text" name="address" onChange={(e) => this.onChange(e)} value={this.state.address} spellCheck="false"/>
+                        <br/>
+                        <label htmlFor="phone">Phone Number: </label>
+                        <input className="form-rounded form-control" type="text" name="phone" onChange={(e) => this.onChange(e)} value={this.state.phone} spellCheck="false"/>
                         <br/>
                         <label htmlFor="key">Set a password for users to login to your location specifically: </label>
                         <p><weak>Display this somewhere in your business.</weak></p>

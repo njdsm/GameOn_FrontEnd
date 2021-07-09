@@ -27,7 +27,7 @@ class CreateGame extends Component {
             name: this.state.name,
             description: this.state.description,
             player_min: this.state.player_min,
-            owner_id: 1,
+            owner_id: this.props.host.id,
             is_active: false,
         }
         this.props.createGame(game);
@@ -52,7 +52,7 @@ class CreateGame extends Component {
                         <label htmlFor="userName">Minimum Players: </label>
                         <input className="form-rounded form-control" type="text" name="player_min" onChange={(e) => this.onChange(e)} value={this.state.player_min} spellCheck="false"/>
                         <br/>
-                        <button className="btn btn-success" type="submit">Create Game!</button>
+                        <button className="btn btn-dark" type="submit">Create Game!</button>
                     </div>
                 </form>
             </div>
@@ -64,5 +64,9 @@ CreateGame.propTypes = {
     createGame: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+    host: state.host.items
+});
+
 // export default RegistrationForm;
-export default connect(null, { createGame })(CreateGame);
+export default connect(mapStateToProps, { createGame })(CreateGame);

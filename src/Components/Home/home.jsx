@@ -21,11 +21,6 @@ class Home extends Component{
         this.props.fetchGames(this.props.host);
     }
 
-    componentDidUpdate(){
-        this.props.fetchGames(this.props.host)
-        console.log(this.props.host)
-    }
-
     startNewGame(game){
         this.props.startGame(this.props.user, game)
         for (let i = 0; i < this.props.users.length; i++){
@@ -43,7 +38,7 @@ class Home extends Component{
     isGameActive(game){
         if (game.is_active === true){
             return (
-                <button onClick={() => this.joinNewGame(game)}>Join game</button>
+                <button onClick={() => this.props.joinGame(this.props.user, game)}>Join game</button>
             ) 
         }
     }

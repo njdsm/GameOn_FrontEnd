@@ -1,4 +1,4 @@
-import { LOGIN, REGISTER_USER, LOGOUT, REDEEM, CREATE_HOST } from '../actions/types';
+import { LOGIN, LOGIN_HOST, REGISTER_USER, LOGOUT, REDEEM, CREATE_HOST } from '../actions/types';
 
 const initialState = {
     items: []
@@ -10,10 +10,16 @@ const initialState = {
 export default function(state = initialState, action){
     switch(action.type){ 
         case LOGIN:
+            action.payload.host = false
             return {
                 ...state, //previous state
                 items: action.payload //array of comment objects being pulled from the API
             };
+        case LOGIN_HOST:
+            return {
+                ...state,
+                items: action.payload
+            }
         case REGISTER_USER:
             return {
                 ...state,

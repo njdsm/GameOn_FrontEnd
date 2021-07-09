@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, REGISTER_USER, GET_USERS, REDEEM, CREATE_HOST } from './types';
+import { LOGIN, LOGOUT, REGISTER_USER, GET_USERS, REDEEM, CREATE_HOST, LOGIN_HOST } from './types';
 import axios from 'axios';
 
 //each action creator is a function
@@ -8,6 +8,18 @@ export const login = (user) => dispatch => {
     try{
         axios.put('http://127.0.0.1:8000/users/', user).then(user => dispatch({
             type: LOGIN,
+            payload: user.data,
+        }))
+    }
+    catch(error){
+        alert(`Whoops! ${error}. Looks like we're having some technical difficulties. Try again later!`)
+    }
+}
+
+export const login_host = (user) => dispatch => {
+    try{
+        axios.put('http://127.0.0.1:8000/users/', user).then(user => dispatch({
+            type: LOGIN_HOST,
             payload: user.data,
         }))
     }

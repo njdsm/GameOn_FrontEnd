@@ -10,6 +10,7 @@ import { endGame } from '../../actions/currentGameActions';
 import axios from 'axios';
 import _ from 'underscore';
 import './runGame.css';
+import { updateHost } from "../../actions/hostActions";
 
 
 class RunGame extends Component{
@@ -20,13 +21,12 @@ class RunGame extends Component{
             answers: [],
             players: [],
         }
-        this.props.fetchGames()
-        this.props.getUsers()
     }
 
     componentDidMount(){
         this.props.fetchGames();
         this.props.getUsers();
+        console.log(this.props.user)
     }
 
     onChange(e){
@@ -85,6 +85,10 @@ class RunGame extends Component{
             if (user.phone === phone){
                 user.score += 1;
             }
+            let payload = {
+                "score": user.score
+            }
+            axios.put("http://127.0.0.1:8000/users/" + user.id + "/", payload)
         })
     }
 
@@ -94,10 +98,12 @@ class RunGame extends Component{
 
     addPoints(user){
         user.points += 100
-        axios.put("http://127.0.0.1:8000/users/" + user.id + "/", user)
+        let payload = {"points": user.points}
+        axios.put("http://127.0.0.1:8000/users/" + user.id + "/", payload)
     }
 
     endGame(game){
+        debugger
         let users = this.props.users.map((player) => {
             if (this.isPlaying(player, game)){
                 player.is_playing = 0;
