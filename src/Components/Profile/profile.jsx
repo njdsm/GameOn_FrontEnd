@@ -21,11 +21,8 @@ class Profile extends Component{
             key: ""
         }
         this.fetchPlayerStats(this.props.user)
+        this.setState({key: this.props.host.key})
         console.log(this.props)
-    }
-
-    componentDidUpdate(){
-        this.props.getHost(this.state.key)
     }
 
     onChange(e){
