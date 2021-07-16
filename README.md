@@ -1,4 +1,12 @@
-# Getting Started with GameOn
+# Welcome to GameOn
+
+This is my capstone project for devCodeCamp's 12-week Full-Stack Developer course.
+
+## Technologies Used:
+### React/Redux/Javascript/Bootstrap/HTML/CSS/Jquery
+
+## Getting started:
+Here is where I will run down how to get GameOn working quickly and easily for you.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
